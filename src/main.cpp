@@ -1,11 +1,11 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 
-const int LED = 2;
-const int BUTTON = 4;
-const char *ssid = "FRITZ!Box 7560 QT";
-const char *pass = "62091186156206291321";
-String url = "http://api.callmebot.com/text.php?source=web&user=@danielratmiroff&text=Dont%20worry%20Daniel,%20I%20Gotcha!";
+const int LED = 2;     // ESP8266's led
+const int BUTTON = 4;  // button gpio
+const char *ssid = ""; // wifi name
+const char *pass = ""; // wifi password
+String url = "http://api.callmebot.com/text.php?source=web&user=@telegramUsername&text=Dont%20worry%,%20I%20Gotcha!";
 int button_state = 0;
 
 HTTPClient http;
@@ -59,23 +59,20 @@ void setup()
 
 void loop()
 {
-
   if (WiFi.status() == WL_CONNECTED)
   {
-
     button_state = digitalRead(BUTTON);
     if (button_state == 1)
     {
       if (http.begin(client, url))
       {
-
         digitalWrite(LED, LOW);
         int httpCode = http.GET();
         for (int i = 1; i < 7; i++)
         {
-          delay(4500);
           Serial.print(i);
           Serial.println(" /GET Request made");
+          delay(4500);
           http.GET();
         }
         Serial.println("Response code: " + String(httpCode));
