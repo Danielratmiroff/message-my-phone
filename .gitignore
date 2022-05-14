@@ -1,3 +1,7 @@
+# Folders
+.vscode/*
+.vscode/
+020718
 # Prerequisites
 *.d
 
@@ -31,11 +35,7 @@
 *.out
 *.app
 *.pio
-.vscode/
-*.vscode/
 .pioenvs
 .piolibdeps
 .clang_complete
 .gcc-flags.json
-.pio/
-*pio/
