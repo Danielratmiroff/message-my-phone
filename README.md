@@ -1,4 +1,5 @@
 ## Find my phone (ESP8266 - IoT)
 
-Own project to spam my phone with telegram messages and eventually find it 
-(Not a huge fan of smart watches 😂) 
+Small project to send telegram messages to my phone so that I can find it, eventually. 
+
+(not a huge fan of smart watches) 
