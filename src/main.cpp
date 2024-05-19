@@ -1,11 +1,15 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266HTTPClient.h>
 
-const int LED = 2;     // ESP8266's led
-const int BUTTON = 4;  // button gpio
+const int LED = 2;    // ESP8266's led
+const int BUTTON = 4; // button gpio
 const char *ssid = ""; // wifi name
 const char *pass = ""; // wifi password
-String url = "http://api.callmebot.com/text.php?source=web&user=@telegramUsername&text=Dont%20worry%,%20I%20Gotcha!";
+const char *username = ""; 
+const char *message = "";
+
+String url = "http://api.callmebot.com/start.php?user=" + String(username) + "&text=" + String(message);
+
 int button_state = 0;
 
 HTTPClient http;
@@ -64,17 +68,20 @@ void loop()
     button_state = digitalRead(BUTTON);
     if (button_state == 1)
     {
+      digitalWrite(LED, HIGH);
       if (http.begin(client, url))
       {
-        digitalWrite(LED, LOW);
         int httpCode = http.GET();
-        for (int i = 1; i < 7; i++)
-        {
-          Serial.print(i);
-          Serial.println(" /GET Request made");
-          delay(4500);
-          http.GET();
+        Serial.println(" /GET Request made");
+        
+        unsigned long startTime = millis();
+        while (millis() - startTime < 3500) {
+          digitalWrite(LED, LOW);
+          delay(100);
+          digitalWrite(LED, HIGH);
+          delay(100);
         }
+        
         Serial.println("Response code: " + String(httpCode));
         http.end();
       }
